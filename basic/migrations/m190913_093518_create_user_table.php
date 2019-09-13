@@ -24,7 +24,7 @@ class m190913_093518_create_user_table extends Migration
         $this->insert('{{%user}}', [
             'id'          => '100',
             'username'    => 'admin',
-            'password'    => 'admin',
+            'password'    => '21232f297a57a5a743894a0e4a801fc3',
             'auth_key'     => 'test100key',
             'access_token' => '100-token',
             'role'        => 'admin',
@@ -33,7 +33,7 @@ class m190913_093518_create_user_table extends Migration
         $this->insert('{{%user}}', [
             'id'          => '101',
             'username'    => 'demo',
-            'password'    => 'demo',
+            'password'    => 'fe01ce2a7fbac8fafaed7c982a04e229',
             'auth_key'     => 'test101key',
             'access_token' => '101-token',
             'role'        => 'editor'

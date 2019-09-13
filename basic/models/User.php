@@ -56,7 +56,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken', 'role'], 'string', 'max' => 256],
+            [['username', 'password', 'auth_key', 'access_token', 'role'], 'string', 'max' => 256],
         ];
     }
 
@@ -105,7 +105,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->password === md5($password);
     }
 
 
@@ -114,7 +114,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+//        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -131,6 +131,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             if ($insert) {
                 $this->generateAuthKey();
             }
+
+            if ( $this->getDirtyAttributes(['password']) ) {
+                $this->password = md5($this->password);
+            }
+
             return true;
         }
         return false;
