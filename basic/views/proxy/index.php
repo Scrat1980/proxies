@@ -27,8 +27,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'ip',
-            'port',
+            [
+                'attribute' => 'ip',
+                'value' => function ($model) {
+                    return Html::textInput(
+                        '',
+                        $model->ip,
+                        [
+                            'class' => 'form-control',
+                            'data-role' => 'ip'
+                        ]
+                    );
+                },
+                'format' => 'raw'
+            ],
+            [
+                'attribute' => 'port',
+                'value' => function ($model) {
+                    return Html::textInput(
+                        '',
+                        $model->port,
+                        [
+                            'class' => 'form-control',
+                            'data-role' => 'port'
+                        ]
+                    );
+                },
+                'format' => 'raw'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

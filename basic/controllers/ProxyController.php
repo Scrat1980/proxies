@@ -124,4 +124,11 @@ class ProxyController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionSave($proxyId, $role, $value)
+    {
+        $proxy = Proxy::find()->where(['id' => $proxyId])->one();
+        $proxy->{$role} = $value;
+        $proxy->save();
+    }
 }

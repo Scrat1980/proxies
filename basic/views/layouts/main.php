@@ -11,6 +11,10 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$this->registerJsFile(
+    '@web/main.js',
+    ['depends' => [\yii\web\JqueryAsset::className()]]
+);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
