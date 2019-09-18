@@ -9,6 +9,7 @@ use app\models\ProxySearch;
 use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -22,10 +23,19 @@ class ProxyController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'upload'],
+                        'allow' => true,
+                        'roles' => ['viewProxies'],
+                    ],
+                    [
+                        'actions' => ['view', 'create', 'delete', 'save', 'update'],
+                        'allow' => true,
+                        'roles' => ['updateProxies'],
+                    ],
                 ],
             ],
         ];
