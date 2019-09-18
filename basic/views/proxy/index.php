@@ -18,6 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Proxy', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <p>
+        <?= Html::a('Bulk download proxies', ['upload'], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([

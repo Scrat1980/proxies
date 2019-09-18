@@ -7,6 +7,9 @@ $( document ).ready(function () {
 Proxy = {
     update: function (e) {
         var proxyId = $(e.target).parents('tr').data('key');
+        if ( !proxyId ) {
+            return;
+        }
         var role = $(e.target).data('role');
         var value = $(e.target).val();
 

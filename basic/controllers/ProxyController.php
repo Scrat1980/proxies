@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Proxy;
+use app\models\UploadForm;
 use app\models\ProxySearch;
+use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -131,4 +133,37 @@ class ProxyController extends Controller
         $proxy->{$role} = $value;
         $proxy->save();
     }
-}
+
+    public function actionUpload() {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->upload()) {
+
+                $filename = '../uploads/' . $model->file->name;
+
+                if (file_exists($filename) && is_readable ($filename)) {
+                    $fileResource  = fopen($filename, "r");
+                    if ($fileResource) {
+                        while (($line = fgets($fileResource)) !== false) {
+                            list($ip, $port) = explode(';', $line);
+                            $proxy = new Proxy();
+                            $proxy->ip = $ip;
+                            $proxy->port = $port;
+                            $proxy->save();
+
+                        }
+                        fclose($fileResource);
+                    }
+                }
+
+                unlink($filename);
+
+                return $this->redirect('/index.php?r=proxy');
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }}
