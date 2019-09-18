@@ -61,7 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect('/index.php?r=site%2Flogin');
+        return $this->redirect('/index.php?r=proxy');
     }
 
     /**
